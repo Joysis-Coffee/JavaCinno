@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <!-- Slick Carousel CSS -->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"
+    />
+
+    <!-- Slick Carousel JavaScript -->
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"
+    ></script>
+  </head>
+  <body>
+    <header class="header">
+      <a href="#" class="logo">
+        <img src="assets/brew2.png" /> What's Up Brew
+      </a>
+
+      <nav class="navbar">
+        <div id="close-navbar" class="fas fa-times"></div>
+        <a (click)="scrollToSection('home')">home</a>
+        <a (click)="scrollToSection('about')">about</a>
+        <a (click)="scrollToSection('contact')">contact</a>
+      </nav>
+
+      <div class="icons">
+        <div id="menu-btn" class="fas fa-bars"></div>
+      </div>
+    </header>
+
+    <section class="home" id="home">
+      <div class="content">
+        <h1>Brewing Brilliance, Savoring Success</h1>
+        <a [routerLink]="['/category/index']" class="btn">Get Started</a>
+      </div>
+    </section>
+
+    <section class="about" id="about">
+      <h1 class="heading-section">about us</h1>
+      <div class="row">
+        <div class="image">
+          <img src="assets/about.jpg" alt="about" />
+        </div>
+
+        <div class="content">
+          <h3>Effortlessly Manage Your Cafe, One Cup at a Time</h3>
+          <div class="line"></div>
+          <p class="about-paragraph">
+            What's Up, Brew is a next-generation automated Point-of-sale (POS)
+            system designed for coffee shops, offering streamlined operations
+            and enhanced customer service. Its intuitive interface enables
+            baristas to input customer requests, customize drink options, and
+            manage complex orders with ease. The comprehensive solution
+            optimizes inventory management, payment processing, and offers
+            valuable insights and analytics for menu optimization, pricing
+            strategies, and growth opportunities. It also provides personalized
+            experiences for customers, including loyalty programs, digital punch
+            cards, and targeted promotions, fostering strong relationships and
+            ensuring customer loyalty.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="meet" id="team">
+      <h1 class="heading-section">Meet the Team</h1>
+      <div class="team-carousel">
+        <div class="team-members">
+          <div class="team-member">
+            <img src="assets/1.png" alt="Team Member 1" />
+            <h3>Axcle Libron Viray</h3>
+            <p>Software Engineer</p>
+          </div>
+          <div class="team-member">
+            <img src="assets/2.png" alt="Team Member 2" />
+            <h3>G-sel Loro</h3>
+            <p>Software Engineer</p>
+          </div>
+          <div class="team-member">
+            <img src="assets/3.png" alt="Team Member 3" />
+            <h3>Maria Trishia Bayona</h3>
+            <p>Software Engineer</p>
+          </div>
+          <div class="team-member">
+            <img src="assets/4.png" alt="Team Member 4" />
+            <h3>Raymund Fajilan Jr.</h3>
+            <p>Software Engineer</p>
+          </div>
+          <div class="team-member">
+            <img src="assets/5.png" alt="Team Member 5" />
+            <h3>Archibald Hulipas</h3>
+            <p>Software Engineer</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer>Created by Dev Ninjas. All Rights Reserved</footer>
+  </body>
+</html>
