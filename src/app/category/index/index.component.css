@@ -1,23 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Bacasime+Antique&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Caprasimo&family=Open+Sans:wght@500;700&display=swap");
 
-body {
-  font-family: "Open Sans", sans-serif;
-  color: #ffffff;
-  /* background-color: #248376; */
-  /* background-image: url('./../../../assets/bg.png');
-   background-repeat: no-repeat;
-   background-size: cover; */
-}
-
-body {
-  height: 100vh;
-  color: cornsilk;
-  background-image: url('/assets/bg5.png');
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-attachment: fixed;
-}
 .nav {
   display: flex;
   justify-content: space-between;

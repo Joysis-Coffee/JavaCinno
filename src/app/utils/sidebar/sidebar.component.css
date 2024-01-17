@@ -1,0 +1,23 @@
+body{
+  background-image: url("/assets/bg5.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+
+/*For sidebar*/
+.sticky-sidebar {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto; /* This allows the sidebar to scroll independently if content overflows */
+}
+
+/*Remove margin*/
+body, nav, .navbar, .navbar-nav {
+  margin: 0;
+  padding: 0;
+}
+
+

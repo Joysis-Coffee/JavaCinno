@@ -7,9 +7,14 @@ import { AppComponent } from './app.component';
 
 import { CategoryModule } from './category/category.module';
 import { HomeComponent } from './home/home.component';
+import {SidebarComponent} from "./utils/sidebar/sidebar.component";
+import {PosComponent} from "./pos/pos.component";
+import {DashboardComponent} from "./dashboard/dashboard.component";
+import {QueeingComponent} from "./queeing/queeing.component";
+import {CashierComponent} from "./cashier/cashier.component";
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent],
+  declarations: [AppComponent, HomeComponent, SidebarComponent, PosComponent, DashboardComponent, QueeingComponent, CashierComponent],
   imports: [BrowserModule, AppRoutingModule, CategoryModule, HttpClientModule],
   providers: [],
   bootstrap: [AppComponent],
