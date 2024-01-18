@@ -1,8 +1,6 @@
-.bg {
-  height: 100vh;
-  color: cornsilk;
+body{
   background-image: url("/assets/bg5.png");
-  background-repeat: no-repeat;
+  background-repeat: repeat;
   background-size: cover;
-  background-attachment: fixed;
+  height: 100vh;
 }
