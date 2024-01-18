@@ -12,9 +12,10 @@ import {PosComponent} from "./pos/pos.component";
 import {DashboardComponent} from "./dashboard/dashboard.component";
 import {QueeingComponent} from "./queeing/queeing.component";
 import {CashierComponent} from "./cashier/cashier.component";
+import {TestComponent} from "./test/test/test.component";
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, SidebarComponent, PosComponent, DashboardComponent, QueeingComponent, CashierComponent],
+  declarations: [AppComponent, HomeComponent, SidebarComponent, PosComponent, DashboardComponent, QueeingComponent, CashierComponent,TestComponent],
   imports: [BrowserModule, AppRoutingModule, CategoryModule, HttpClientModule],
   providers: [],
   bootstrap: [AppComponent],

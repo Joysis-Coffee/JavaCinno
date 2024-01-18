@@ -10,36 +10,25 @@ import {SampleModel} from "./sample-model";
   styleUrls: ['./index.component.css']
 })
 export class IndexComponent implements OnInit {
+  categories: Category[] = [];
 
-  sampleModel : SampleModel[] | undefined;
+  constructor(public categoryService: CategoryService) { }
 
   ngOnInit(): void {
-    this.sampleModel = this.getSampleModel();
+    this.categoryService.getAll().subscribe((data: Category[])=>{
+      this.categories = data;
+      console.log(this.categories);
+    })
   }
 
-  getSampleModel(): SampleModel[] {
-    let mockSampleModel: SampleModel[] = [
-      {
-        id: 1,
-        first: "John",
-        last: "Doe",
-        handle: "USA",
-      },{
-        id: 2,
-        first: "Joseph",
-        last: "Cruz",
-        handle: "PH",
-      },
-      {
-        id: 3,
-        first: "Markd",
-        last: "Cruz",
-        handle: "PH",
-      },
-      ];
-    return mockSampleModel;
+  deleteCategory(id:number){
+    if(confirm("Are you sure to delete this record?"))
+      this.categoryService.delete(id).subscribe(res => {
+        this.categories = this.categories.filter(item => item.id !== id);
+        alert("Record deleted successfully")
+        console.log('Product deleted successfully!');
+      })
   }
-
 
 
 }
