@@ -2,6 +2,9 @@ export interface Category {
     id: number;
     name: string;
     type: string;
-    size: string;
-    price: number;
+    small_price: number;
+    medium_price: number;
+    large_price: number;
+    revenue: number;
+    total_items_sold: number;
 }
