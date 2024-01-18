@@ -5,3 +5,22 @@
 </div>
 
 <!-- Dave -->
+
+<table class="table table-light">
+  <thead>
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col">First</th>
+    <th scope="col">Last</th>
+    <th scope="col">Handle</th>
+  </tr>
+  </thead>
+  <tbody>
+   <tr *ngFor="let example of sampleModel">
+      <th scope="row">{{example.id}}</th>
+      <td>{{example.first}}</td>
+      <td>{{ example.last }}</td>
+      <td>{{ example.handle }}</td>
+   </tr>
+  </tbody>
+</table>
