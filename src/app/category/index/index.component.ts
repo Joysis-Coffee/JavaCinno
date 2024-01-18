@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { CategoryService } from '../category.service';
-import { Category } from '../category';
+import { CategoryModel } from '../categoryModel';
 import {SampleModel} from "./sample-model";
+import {MatDialog} from "@angular/material/dialog";
+import {ViewComponent} from "../view/view.component";
 
 
 @Component({
@@ -10,12 +12,14 @@ import {SampleModel} from "./sample-model";
   styleUrls: ['./index.component.css']
 })
 export class IndexComponent implements OnInit {
-  categories: Category[] = [];
+  categories: CategoryModel[] = [];
 
-  constructor(public categoryService: CategoryService) { }
+  constructor(public categoryService: CategoryService,
+              public dialog: MatDialog,
+              ) { }
 
   ngOnInit(): void {
-    this.categoryService.getAll().subscribe((data: Category[])=>{
+    this.categoryService.getAll().subscribe((data: CategoryModel[])=>{
       this.categories = data;
       console.log(this.categories);
     })
@@ -29,6 +33,19 @@ export class IndexComponent implements OnInit {
         console.log('Product deleted successfully!');
       })
   }
+
+
+  viewInvetory(category: CategoryModel) {
+    const dialogRef = this.dialog.open(ViewComponent, {
+      width: '80%',
+      data: {...category}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
+  }
+
 
 
 }

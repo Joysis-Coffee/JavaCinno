@@ -1,4 +1,10 @@
-<body>
+<div mat-dialog-title>
+  {{ data.name }}
+
+</div>
+
+<mat-dialog-content class="mat-typography">
+
   <div class="container view-con">
     <h1 class="center">Menu</h1>
 
@@ -6,37 +12,48 @@
 
     <div>
       <strong>ID:</strong>
-      <p>{{ category.id }}</p>
+      <p>{{ data.id }}</p>
     </div>
 
     <div>
       <strong>Name:</strong>
-      <p>{{ category.name }}</p>
+      <p>{{ data.name }}</p>
     </div>
 
     <div>
       <strong>Type:</strong>
-      <p>{{ category.type }}</p>
+      <p>{{ data.type }}</p>
     </div>
 
     <div>
-      <strong>Size:</strong>
-      <p>{{ category.large_price }}</p>
+      <strong>Small Price:</strong>
+      <p>{{ data.small_price }}</p>
     </div>
 
     <div>
-      <strong>Price:</strong>
-      <p>{{ category.small_price }}</p>
+      <strong>Medium Price:</strong>
+      <p>{{ data.medium_price }}</p>
     </div>
 
-    <!-- <div>
-        <strong>Image:</strong>
-        <p>{{ category.image }}</p>
-    </div> -->
+    <div>
+      <strong>Large Price:</strong>
+      <p>{{ data.large_price }}</p>
+    </div>
 
-    <!-- <div>
-        <strong>Description:</strong>
-        <p>{{ category.description }}</p>
-    </div> -->
+    <div>
+      <strong>Revenue</strong>
+      <p>{{ data.revenue }}</p>
+    </div>
+
+    <div>
+      <strong>Total Sold Items</strong>
+      <p>{{ data.total_items_sold }}</p>
+    </div>
+
   </div>
-</body>
+</mat-dialog-content>
+
+
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Close</button>
+</mat-dialog-actions>
