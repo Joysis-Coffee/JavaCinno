@@ -37,7 +37,7 @@ export class IndexComponent implements OnInit {
 
   viewInvetory(category: CategoryModel) {
     const dialogRef = this.dialog.open(ViewComponent, {
-      width: '80%',
+      width: '50vw',
       data: {...category}
     });
 
