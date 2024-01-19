@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
-import {  Observable, throwError } from 'rxjs';
+import {BehaviorSubject, Observable, tap, throwError} from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
 import { CategoryModel } from './categoryModel';
@@ -10,6 +10,8 @@ import { CategoryModel } from './categoryModel';
   providedIn: 'root'
 })
 export class CategoryService {
+  private categoriesSubject = new BehaviorSubject<CategoryModel[]>([]);
+  categories$ = this.categoriesSubject.asObservable();
 
   private apiURL = "http://127.0.0.1:8081/api/v1";
 
@@ -17,6 +19,10 @@ export class CategoryService {
     headers: new HttpHeaders({
       'Content-Type': 'application/json'
     })
+  }
+
+  updateCategoriesData(categories: CategoryModel[]) {
+    this.categoriesSubject.next(categories);
   }
 
   constructor(private httpClient: HttpClient) { }
@@ -42,12 +48,31 @@ export class CategoryService {
     )
   }
 
-  update(id:number, category:any): Observable<CategoryModel> {
-    return this.httpClient.put<CategoryModel>(this.apiURL + '/products/' + id, JSON.stringify(category), this.httpOptions)
-    .pipe(
-      catchError(this.errorHandler)
-    )
+  update(id: number, category: any): Observable<CategoryModel> {
+    return this.httpClient.put<CategoryModel>(`${this.apiURL}/products/${id}`, JSON.stringify(category), this.httpOptions)
+      .pipe(
+        tap(() => {
+          this.refreshCategoriesList();
+        }),
+        catchError(this.errorHandler)
+      );
   }
+
+  refreshCategoriesList() {
+    this.getAll().subscribe(categories => {
+      this.updateCategoriesData(categories);
+    });
+  }
+
+  // This method should make an HTTP request to fetch categories and push them into the BehaviorSubject
+  fetchCategories() {
+    this.httpClient.get<CategoryModel[]>(`${this.apiURL}/products`).subscribe(
+      categories => this.categoriesSubject.next(categories),
+      error => console.error('Error fetching categories', error)
+    );
+  }
+
+
 
   delete(id:number){
     return this.httpClient.delete<CategoryModel>(this.apiURL + '/products/' + id, this.httpOptions)

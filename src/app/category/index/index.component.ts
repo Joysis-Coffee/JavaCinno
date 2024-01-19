@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { CategoryService } from '../category.service';
 import { CategoryModel } from '../categoryModel';
-import {SampleModel} from "./sample-model";
 import {MatDialog} from "@angular/material/dialog";
 import {ViewComponent} from "../view/view.component";
 import {EditComponent} from "../edit/edit.component";
+import {CreateComponent} from "../create/create.component";
 
 
 @Component({
@@ -20,10 +20,10 @@ export class IndexComponent implements OnInit {
               ) { }
 
   ngOnInit(): void {
-    this.categoryService.getAll().subscribe((data: CategoryModel[])=>{
+    this.categoryService.fetchCategories(); // Make sure this method exists and fetches data
+    this.categoryService.categories$.subscribe((data: CategoryModel[]) => {
       this.categories = data;
-      console.log(this.categories);
-    })
+    });
   }
 
   deleteCategory(id:number){
@@ -65,6 +65,21 @@ export class IndexComponent implements OnInit {
 
   }
 
+  /**
+   * Add inventory
+   */
 
+  addInventory() {
+    const dialogRef = this.dialog.open(CreateComponent, {
+      width: '50vw',
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
 
   }
+
+
+
+}
