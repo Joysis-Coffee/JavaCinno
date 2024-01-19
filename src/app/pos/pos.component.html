@@ -1,9 +1,50 @@
-<div class="bg container-fluid">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="./pos.component.css">
+    <title>Coffee Shop POS</title>
+</head>
+<body>
+    <!-- Main container for Point of Sale (POS) -->
+    <div class="pos-container">
+        <div class="products">
+      <!-- Left side: Products Menu -->
+            <h2>Menu</h2>
 
-<!--POS-->
-  <h2>POS</h2>
-  <h2>Mark angelo</h2>
-</div>
+         <!-- Loop through unique product categories -->
+            <div *ngFor="let category of getUniqueCategories()" class="category">
+                <h3>{{ category }}</h3>
+                 <!-- Container for the list of products within a category -->
+                <div class="product-list">
+                <!-- Button for each product in the current category -->
+                    <button *ngFor="let product of getProductsByCategory(category)" class="product-button"
+                            (click)="showSizeOptions(product)">
+                        {{ product.name }}
+                    </button>
+                </div>
+            </div>
+        </div>
 
-<!--Update #1-->
-<!--CHECK FETCH-->
+    <!-- Right side: Shopping Cart -->
+        <div class="cart">
+            <h2>Total Pay: ₱{{ total | number:'1.2-2' }}</h2>
+
+            <!-- Display the items in the shopping cart -->
+            <ul>
+              <li *ngFor="let item of cart">
+                {{ item.name }} x{{ item.quantity }}
+
+                <!-- Display size of the product-->
+                <span *ngIf="item.size"> - Size: {{ item.size }}</span>
+                - ₱{{ item.price * item.quantity | number:'1.2-2' }}
+              </li>
+            </ul>
+
+            <!-- Button to proceed with the payment -->
+            <button class="pay-button" (click)="onPay()">Pay</button>
+        </div>
+    </div>
+</body>
+</html>

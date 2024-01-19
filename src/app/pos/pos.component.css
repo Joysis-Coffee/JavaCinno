@@ -1,9 +1,127 @@
-.bg {
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
   height: 100vh;
   color: cornsilk;
   background-image: url("/assets/bg5.png");
   background-repeat: no-repeat;
   background-size: cover;
   background-attachment: fixed;
+}
 
+/* Styling for the main Point of Sale (POS) container */
+
+.pos-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 80vw; 
+  color: cornsilk;
+  background: rgba(9, 40, 52, 0.747);
+}
+
+.products {
+  padding: 20px;
+  border-right: 1px solid #ddd;
+  flex: 1;
+  margin-bottom: 20px;
+}
+
+/* Styling for text within the shopping cart */
+.cart {
+  padding: 15px;
+  width: 30%;
+  background-color: transparent;
+  box-shadow: -2px 0 10px rgba(9, 40, 52, 0.747);
+}
+
+.cart p {
+  color:  #fff;
+}
+
+/* Styling for heading tags */
+h2 {
+  text-align: center;
+}
+
+h2, h3 {
+  color: #fff;
+  margin-bottom: 20px;
+}
+
+/* Styling for subheadings */
+h3 {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+}
+
+/* Styling for product categories */
+.category {
+  margin-bottom: 20px; 
+}
+
+/* Styling for the list of products within a category */
+.product-list {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+}
+
+/* Styling for product buttons */
+.product-button {
+  color: #3498db;
+  border: #3498db;
+  padding: 10px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  border-radius: 5px;
+  margin-bottom: 5px;
+}
+
+.product-button:hover {
+  background-color: #004857;
+}
+
+/* Styling for the payment button */
+.pay-button {
+  color: #3498db;
+  border: #3498db;
+  padding: 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 1rem;
+  border-radius: 5px; 
+  cursor: pointer;
+  margin-bottom: 5px;
+  transition: background-color 0.3s;
+  width: 150px;
+}
+
+.pay-button:hover {
+  background-color: #004857;
+}
+
+/* Styling for the unordered list */
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+/* Styling for list items within the shopping cart */
+li {
+  margin-bottom: 10px;
+  color: #555;
+}
+
+/* Styling for the total amount in the shopping cart */
+#total {
+  font-weight: bold;
+  color: #333;
 }
