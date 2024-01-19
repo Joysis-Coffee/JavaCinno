@@ -4,6 +4,7 @@ import { CategoryModel } from '../categoryModel';
 import {SampleModel} from "./sample-model";
 import {MatDialog} from "@angular/material/dialog";
 import {ViewComponent} from "../view/view.component";
+import {EditComponent} from "../edit/edit.component";
 
 
 @Component({
@@ -41,11 +42,29 @@ export class IndexComponent implements OnInit {
       data: {...category}
     });
 
+
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
     });
   }
 
 
+  /**
+   * Edit inventory Modal
+   * @param category
+   */
+  editInventory(category: CategoryModel) {
+    const dialogRef = this.dialog.open(EditComponent, {
+      width: '50vw',
+      data: { ...category}
+    });
 
-}
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
+
+  }
+
+
+
+  }

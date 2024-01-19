@@ -17,25 +17,25 @@
             <th>Time Transact</th>
             <th>Time</th>
             <th>Action</th>
-            
+
 
           </tr>
           </thead>
 
           <tbody class="transparent-body">
-          <tr *ngFor="let example of " class="text-white content">
-            <th scope="row">Harcode</th>
-            <td>Harcode</td>
-            <td>Harcode</td>
-            <td>Harcode</td>
+          <tr *ngFor="let queeingModel of model" class="text-white content">
+            <th scope="row">{{queeingModel.id}}</th>
+            <td>{{queeingModel.name}}</td>
+            <td>{{queeingModel.transaction_date}}</td>
+            <td>{{queeingModel.time}}</td>
             <td>
-              <button type="button" style=" margin-right: 20px;" class="btn btn-primary">View Order</button> 
-            
+              <button type="button" style=" margin-right: 20px;" class="btn btn-primary">View Order</button>
+
               <button type="button" class="btn btn-success">Done</button>
             </td>
-           
+
           </tr>
-          
+
           </tbody>
 
         </table>

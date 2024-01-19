@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { model } from './model';
+import { queeingModel } from './queeing-model';
 import { SampleModel } from '../category/index/sample-model';
 
 @Component({
@@ -8,14 +8,14 @@ import { SampleModel } from '../category/index/sample-model';
   styleUrl: './queeing.component.css'
 })
 export class QueeingComponent implements OnInit {
-  
-  model : model[] | undefined;
+
+  model : queeingModel[] | undefined;
 
   ngOnInit(): void {
     this.model = this.getData();
   }
-  getData(): model[] {
-    const data: model[] = [
+  getData(): queeingModel[] {
+    const data: queeingModel[] = [
       {
         id: 1,
         name: "Howard",

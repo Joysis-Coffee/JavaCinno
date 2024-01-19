@@ -25,3 +25,37 @@ body {
   text-align: center;
   margin-bottom: 20px;
 }
+
+
+.half-width {
+  width: 50%; /* or any ratio you want */
+  padding-right: 8px; /* Adjust spacing as needed */
+}
+
+.third-width {
+  width: 33.3333%; /* or any ratio you want */
+  padding-right: 8px; /* Adjust spacing as needed */
+}
+
+.form-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.background-img {
+  /* Add your background image styles here */
+}
+
+.background-primary {
+  /* Add your primary background color styles here */
+}
+
+.center {
+  text-align: center;
+}
+
+.full-width {
+  width: 100%;
+}
+
