@@ -5,6 +5,7 @@ import {MatDialog} from "@angular/material/dialog";
 import {ViewComponent} from "../view/view.component";
 import {EditComponent} from "../edit/edit.component";
 import {CreateComponent} from "../create/create.component";
+import {Subject, takeUntil} from "rxjs";
 
 
 @Component({
@@ -14,16 +15,28 @@ import {CreateComponent} from "../create/create.component";
 })
 export class IndexComponent implements OnInit {
   categories: CategoryModel[] = [];
+  private unsubscribe$ = new Subject();
 
   constructor(public categoryService: CategoryService,
               public dialog: MatDialog,
               ) { }
 
   ngOnInit(): void {
-    this.categoryService.fetchCategories(); // Make sure this method exists and fetches data
-    this.categoryService.categories$.subscribe((data: CategoryModel[]) => {
+    this.categoryService.fetchCategories();
+    this.categoryService.categories$
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe((data: CategoryModel[]) => {
       this.categories = data;
     });
+
+    // Fetch initial data
+    this.categoryService.refreshCategoriesList();
+  }
+
+  ngOnDestroy() {
+    // Trigger the unsubscribe
+    this.unsubscribe$.next(undefined);
+    this.unsubscribe$.complete();
   }
 
   deleteCategory(id:number){

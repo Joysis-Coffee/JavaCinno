@@ -62,29 +62,35 @@ export class CreateComponent implements OnInit {
    *
    * @return response()
    */
-  submit(){
-    if (!this.form.invalid) {
-      console.log(this.form.value);
-      this.categoryService.create(this.form.value).subscribe((res:any) => {
-        console.log('Product created successfully!');
-        this.dialogRef.close();
-        this.snackBar.open('Product created successfully!', '', {
-          duration: 3000
-        });
-      }, (error:any) => {
-        console.log(error);
-        this.snackBar.open('Product created failed!' + error, '', {duration: 3000});
-
+  submit() {
+    if (this.form.valid) {
+      this.isSubmitting = true;
+      this.categoryService.create(this.form.value).subscribe({
+        next: (res) => {
+          console.log('Product created successfully!');
+          this.categoryService.refreshCategoriesList(); // Refresh the categories list
+          this.dialogRef.close();
+          this.snackBar.open('Product created successfully!', '', {
+            duration: 3000
+          });
+          this.isSubmitting = false;
+        },
+        error: (error) => {
+          console.error('Product creation failed!', error);
+          this.snackBar.open('Product creation failed! ' + error, '', {
+            duration: 3000
+          });
+          this.isSubmitting = false;
+        }
       });
-    }else {
-      console.log('Product created failed!');
-      this.snackBar.open('Product created failed!', '', {
+    } else {
+      console.error('Form is not valid.');
+      this.snackBar.open('Form is not valid', '', {
         duration: 3000
       });
     }
-
-
   }
+
 
 
 }
