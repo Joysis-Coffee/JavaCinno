@@ -1,14 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+
+
 /* You can add global styles to this file, and also import other style files */
 body{
   font-family: Roboto, "Helvetica Neue", sans-serif;
   font-family: 'Montserrat', sans-serif;
-
 }
-
-
-
 
 /*Remove margin*/
 body, nav, .navbar, .navbar-nav {
@@ -19,3 +18,142 @@ body, nav, .navbar, .navbar-nav {
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+table{
+  width: 100%;
+  font-size: 15px;
+}
+
+
+table > thead.dark-header {
+  background-color: #03343e;
+  color: white;
+  height: 60px;
+
+}
+
+table > tbody.transparent-body > tr > td , table > tbody.transparent-body > tr > th {
+  height: 50px;
+  border-bottom: 0.4px solid gray;
+}
+
+.padded-first-column {
+  padding-left: 15px; /* Adjust the value as needed */
+}
+
+
+table tbody tr td {
+  transition: background-color 0.3s ease-in-out;
+}
+
+table tbody tr:hover {
+  background-color: #116070;
+  cursor: pointer;
+}
+
+
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0;
+}
+
+.logo {
+  height: 100px;
+  width: 100px;
+  padding-top: 10px;
+}
+
+.imageContainer {
+  height: 40px;
+  width: 40px;
+  align-items: center;
+}
+
+.newCategory {
+  margin: 20px 0;
+  border-radius: 10px;
+  background-color: #006075;
+  color: rgb(255, 255, 255);
+  border-color: #ffffff;
+}
+.newCategory:hover {
+  background-color: #ffffff;
+  color: #006075;
+  border-color: #006075;
+  cursor: pointer;
+}
+
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: "Caprasimo", cursive;
+  color: #ffffff;
+  /* background-color: #248376; */
+  /* padding: 0 100px; */
+}
+.navName {
+  -webkit-text-stroke: 1px #030303;
+}
+.brew {
+  color: #9a7b48;
+  -webkit-text-stroke: 0.1px #ffffff;
+}
+
+.logo {
+  height: 100px;
+  width: 100px;
+  padding-bottom: 15px;
+}
+
+.header {
+  color: aliceblue;
+  border-radius: 20px;
+}
+
+.index-container {
+  border-radius: 20px;
+  border-color: black;
+  /* background-color: #248376; */
+  backdrop-filter: blur(13px) saturate(180%);
+  -webkit-backdrop-filter: blur(13px) saturate(180%);
+  background-color: rgba(255, 255, 255, 0);
+  border-radius: 12px;
+  border: 1px solid rgba(209, 213, 219, 0.3);
+  color: rgb(255, 255, 255);
+  padding-bottom: 10px;
+}
+.des {
+  padding-left: 100px;
+}
+
+/* button */
+.btn-danger,
+.btn-primary,
+.btn-info {
+  /* height: 45px; */
+  color: white;
+  /* width: 80px; */
+}
+
+
+.background-primary  {
+  border-color: black !important;
+  /* background-color: #248376; */
+  backdrop-filter: blur(13px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(13px) saturate(180%) !important;
+  background-color: rgba(255, 255, 255, 0) !important;
+  border: 1px solid rgba(209, 213, 219, 0.3) !important;
+  color: rgb(255, 255, 255);
+}
+
+
+.bacground-img{
+  background-image: url("/assets/bg5.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+}

@@ -9,6 +9,7 @@ import {PosComponent} from "./pos/pos.component";
 import {QueeingComponent} from "./queeing/queeing.component";
 import {AppComponent} from "./app.component";
 import {BrowserModule} from "@angular/platform-browser";
+import {TestComponent} from "./test/test/test.component";
 
 const routes: Routes = [
 
@@ -17,6 +18,8 @@ const routes: Routes = [
       { path: '', component: HomeComponent },
       { path: 'pos', component: PosComponent },
       { path: 'queeing', component: QueeingComponent },
+      { path: 'test', component: TestComponent },
+
     ],
 },
 

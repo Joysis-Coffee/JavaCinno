@@ -124,9 +124,7 @@ img {
   background: #000;
 }
 
-/* Don't need button navigation */
-@supports (scroll-snap-type) {
-  .slider > a {
-    display: none;
-  }
+
+p, strong{
+  color: white; !important;
 }

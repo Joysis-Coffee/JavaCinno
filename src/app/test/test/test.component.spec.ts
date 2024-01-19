@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { QueeingComponent } from './queeing.component';
+import { TestComponent } from './test.component';
 
-describe('QueeingComponent', () => {
-  let component: QueeingComponent;
-  let fixture: ComponentFixture<QueeingComponent>;
+describe('TestComponent', () => {
+  let component: TestComponent;
+  let fixture: ComponentFixture<TestComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [QueeingComponent]
+      imports: [TestComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(QueeingComponent);
+    fixture = TestBed.createComponent(TestComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
@@ -21,5 +21,3 @@ describe('QueeingComponent', () => {
     expect(component).toBeTruthy();
   });
 });
-
-

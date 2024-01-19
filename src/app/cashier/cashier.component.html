@@ -1,8 +1,48 @@
-<div class="bg container-fluid">
-  <!--QUEEING -->
-  <h2 class="text-white">CASHIER ACCOUNT</h2>
-  <h2 class="text-white">DAVE</h2>
+<div>
+  <div class="nav">
+    <img src="./../assets/brew2.png" class="logo">
+    <h1 class="navName">Javacinno</h1>
+  </div>
+
+  <div class="container-fluid index-container p-3 mt-4">
+    <div class="row">
+      <div class="col-md-12">
+        <a href="#"  class="btn btn-success newCategory">
+          <i class="fa-solid fa-plus"></i>
+          Add Cashier</a>
+        <table>
+          <thead class="dark-header" >
+          <tr class="header">
+            <th class="padded-first-column">ID</th>
+            <th>Username</th>
+            <th>Full Name</th>
+            <th>Password</th>
+          </tr>
+          </thead>
+
+          <tbody class="transparent-body">
+          <tr *ngFor="let example of cashierTable" class="text-white content">
+            <th scope="row">{{example.id}}</th>
+            <td>{{example.username }}</td>
+            <td>{{example.fullname}}</td>
+            <td>{{ example.password }}</td>
+          </tr>
+          </tbody>
+
+        </table>
+      </div>
+
+    </div>
+
+  </div>
+
 </div>
 
-<!-- Dave -->
-<!-- CHECK FETCH -->
+
+
+
+
+
+
+
+

@@ -1,20 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 import { CategoryService } from '../category.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Category } from '../category';
+import { CategoryModel } from '../categoryModel';
 import { FormGroup, FormControl, Validators} from '@angular/forms';
-      
+
 @Component({
   selector: 'app-edit',
   templateUrl: './edit.component.html',
   styleUrls: ['./edit.component.css']
 })
 export class EditComponent implements OnInit {
-       
+
   id!: number;
-  category!: Category;
+  category!: CategoryModel;
   form!: FormGroup;
-     
+
   /*------------------------------------------
   --------------------------------------------
   Created constructor
@@ -25,7 +25,7 @@ export class EditComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router
   ) { }
-     
+
   /**
    * Write code on Method
    *
@@ -33,10 +33,10 @@ export class EditComponent implements OnInit {
    */
   ngOnInit(): void {
     this.id = this.route.snapshot.params['categoryId'];
-    this.categoryService.find(this.id).subscribe((data: Category)=>{
+    this.categoryService.find(this.id).subscribe((data: CategoryModel)=>{
       this.category = data;
-    }); 
-       
+    });
+
     this.form = new FormGroup({
       name: new FormControl('', [Validators.required]),
       type: new FormControl('', [Validators.required]),
@@ -45,7 +45,7 @@ export class EditComponent implements OnInit {
       // description: new FormControl('', Validators.required)
     });
   }
-     
+
   /**
    * Write code on Method
    *
@@ -54,7 +54,7 @@ export class EditComponent implements OnInit {
   get f(){
     return this.form.controls;
   }
-     
+
   /**
    * Write code on Method
    *
@@ -67,5 +67,5 @@ export class EditComponent implements OnInit {
          this.router.navigateByUrl('product/index');
     })
   }
-    
+
 }
