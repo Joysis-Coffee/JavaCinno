@@ -5,6 +5,7 @@ import {Subject, takeUntil} from "rxjs";
 import {ProductModel} from "../services/model/product-model";
 import {CreateCashierComponent} from "./create-cashier/create-cashier.component";
 import {MatDialog} from "@angular/material/dialog";
+import {UpdateCashierComponent} from "./update-cashier/update-cashier.component";
 
 @Component({
   selector: 'app-cashier',
@@ -48,5 +49,18 @@ export class CashierComponent {
     });
 
     }
+
+  updateCahsier(data: cashierModel) {
+    const  dialogRef = this.dialog.open(UpdateCashierComponent, {
+      width: '600px',
+      data: {...data}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+      this.cashierService.refreshCategoriesList();
+    });
+
+  }
 
 }

@@ -18,11 +18,6 @@ export class EditComponent implements OnInit {
   form!: FormGroup;
   isSubmitting = false;
 
-  /*------------------------------------------
-  --------------------------------------------
-  Created constructor
-  --------------------------------------------
-  --------------------------------------------*/
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: ProductModel,
     private dialogRef: MatDialogRef<EditComponent>,

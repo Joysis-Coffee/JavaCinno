@@ -25,9 +25,11 @@ import {MatButtonModule} from "@angular/material/button";
 import {MatDialogActions, MatDialogContent, MatDialogModule} from "@angular/material/dialog";
 import {CreateCashierComponent} from "./cashier/create-cashier/create-cashier.component";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {CashierService} from "./services/cashier.service.service";
+import {UpdateCashierComponent} from "./cashier/update-cashier/update-cashier.component";
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, SidebarComponent, PosComponent, DashboardComponent, QueeingComponent, CashierComponent,TestComponent, CreateCashierComponent],
+  declarations: [AppComponent, HomeComponent, SidebarComponent, PosComponent, DashboardComponent, QueeingComponent, CashierComponent,TestComponent, CreateCashierComponent, UpdateCashierComponent],
   imports: [BrowserModule,
     AppRoutingModule,
     CategoryModule,

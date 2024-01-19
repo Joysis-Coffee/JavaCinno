@@ -1,1 +1,40 @@
-<p>update-cashier works!</p>
+<mat-dialog-content class="mat-typography background-primary py-5">
+  <h1 class="center">Update Cashier</h1>
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <div class="form-row">
+      <mat-form-field class="full-width">
+        <mat-label>Username:</mat-label>
+        <input matInput formControlName="user_name">
+        <mat-error *ngIf="form.get('user_name')?.touched && form.get('user_name')?.invalid">
+          <span *ngIf="form.get('user_name')?.errors?.['required']">Username is required.</span>
+        </mat-error>
+      </mat-form-field>
+
+    </div>
+
+
+    <div class="form-row">
+      <mat-form-field class="full-width">
+        <mat-label>Full Name:</mat-label>
+        <input matInput formControlName="full_name">
+        <mat-error *ngIf="form.get('full_name')?.touched && form.get('full_name')?.invalid">
+          <span *ngIf="form.get('full_name')?.errors?.['required']">Fullname is required.</span>
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="form-row">
+      <mat-form-field class="full-width">
+        <mat-label>Password:</mat-label>
+        <input matInput formControlName="password">
+        <mat-error *ngIf="form.get('password')?.touched && form.get('password')?.invalid">
+          <span *ngIf="form.get('password')?.errors?.['password']">Password is required.</span>
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <button mat-raised-button color="primary" type="submit" [disabled]="!form.valid">
+      Save
+    </button>
+  </form>
+</mat-dialog-content>

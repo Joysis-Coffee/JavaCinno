@@ -21,7 +21,7 @@
           </thead>
 
           <tbody class="transparent-body">
-          <tr *ngFor="let cashiers of cashier" class="text-white content">
+          <tr *ngFor="let cashiers of cashier" class="text-white content" (click)="updateCahsier(cashiers)" >
             <th scope="row" class="padded-first-column">{{cashiers.id}}</th>
             <td>{{cashiers.user_name }}</td>
             <td>{{cashiers.full_name}}</td>
