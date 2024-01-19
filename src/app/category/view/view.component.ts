@@ -1,7 +1,7 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import { CategoryService } from '../category.service';
+import { CategoryService } from '../../services/category.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CategoryModel } from '../categoryModel';
+import { ProductModel } from '../../services/model/product-model';
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 
 @Component({
@@ -12,7 +12,7 @@ import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 export class ViewComponent implements OnInit {
 
   id!: number;
-  category!: CategoryModel;
+  category!: ProductModel;
 
   /*------------------------------------------
   --------------------------------------------
@@ -20,7 +20,7 @@ export class ViewComponent implements OnInit {
   --------------------------------------------
   --------------------------------------------*/
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: CategoryModel,
+    @Inject(MAT_DIALOG_DATA) public data: ProductModel,
     private dialogRef : MatDialogRef<ViewComponent>,
     public categoryService: CategoryService,
     private route: ActivatedRoute,
@@ -38,7 +38,7 @@ export class ViewComponent implements OnInit {
   ngOnInit(): void {
     this.id = this.route.snapshot.params['categoryId'];
 
-    this.categoryService.find(this.id).subscribe((data: CategoryModel)=>{
+    this.categoryService.find(this.id).subscribe((data: ProductModel)=>{
       this.category = data;
     });
 

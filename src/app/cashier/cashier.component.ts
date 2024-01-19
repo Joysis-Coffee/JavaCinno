@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
-import {cashierTable} from "./cashier.table";
+import {cashierModel} from "../services/model/cashier-model";
+import {CashierService} from "../services/cashier.service.service";
+import {Subject, takeUntil} from "rxjs";
+import {ProductModel} from "../services/model/product-model";
 
 @Component({
   selector: 'app-cashier',
@@ -7,35 +10,30 @@ import {cashierTable} from "./cashier.table";
   styleUrl: './cashier.component.css'
 })
 export class CashierComponent {
+  private unsubscribe$ = new Subject();
+  cashier : cashierModel[] | undefined;
 
-  cashierTable : cashierTable[] | undefined;
+  constructor(private cashierService: CashierService) {
+  }
 
   ngOnInit(): void {
-    this.cashierTable = this.getcashierTable();
+    this.cashierService.fetchCategories();
+    this.cashierService.cashiers$
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe((data: cashierModel[]) => {
+        this.cashier = data;
+      });
+    this.cashierService.refreshCategoriesList();
+
   }
 
-  getcashierTable(): cashierTable[] {
-    let mockcashierTable: cashierTable[] = [
-      {
-        id: 1,
-        username: "dnluz",
-        fullname: "Dave Nielsen D. Luz",
-        password: "dave123",
-      },{
-        id: 2,
-        username: "dnluz",
-        fullname: "Dave Nielsen D. Luz",
-        password: "dave123",
-      },
-      {
-        id: 3,
-        username: "dnluz",
-        fullname: "Dave Nielsen D. Luz",
-        password: "dave123",
-      },
-      ];
-    return mockcashierTable;
+  ngOnDestroy() {
+    // Trigger the unsubscribe
+    this.unsubscribe$.next(undefined);
+    this.unsubscribe$.complete();
   }
+
+
 
 
 }

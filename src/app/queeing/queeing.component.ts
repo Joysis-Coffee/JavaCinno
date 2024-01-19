@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { queeingModel } from './queeing-model';
+import { queeingModel } from '../services/model/queeing-model';
 
 @Component({
   selector: 'app-queeing',

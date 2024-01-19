@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { CategoryService } from '../category.service';
-import { CategoryModel } from '../categoryModel';
+import { CategoryService } from '../../services/category.service';
+import { ProductModel } from '../../services/model/product-model';
 import {MatDialog} from "@angular/material/dialog";
 import {ViewComponent} from "../view/view.component";
 import {EditComponent} from "../edit/edit.component";
@@ -14,7 +14,7 @@ import {Subject, takeUntil} from "rxjs";
   styleUrls: ['./index.component.css']
 })
 export class IndexComponent implements OnInit {
-  categories: CategoryModel[] = [];
+  categories: ProductModel[] = [];
   private unsubscribe$ = new Subject();
 
   constructor(public categoryService: CategoryService,
@@ -25,7 +25,7 @@ export class IndexComponent implements OnInit {
     this.categoryService.fetchCategories();
     this.categoryService.categories$
       .pipe(takeUntil(this.unsubscribe$))
-      .subscribe((data: CategoryModel[]) => {
+      .subscribe((data: ProductModel[]) => {
       this.categories = data;
     });
 
@@ -49,7 +49,7 @@ export class IndexComponent implements OnInit {
   }
 
 
-  viewInvetory(category: CategoryModel) {
+  viewInvetory(category: ProductModel) {
     const dialogRef = this.dialog.open(ViewComponent, {
       width: '50vw',
       data: {...category}
@@ -66,7 +66,7 @@ export class IndexComponent implements OnInit {
    * Edit inventory Modal
    * @param category
    */
-  editInventory(category: CategoryModel) {
+  editInventory(category: ProductModel) {
     const dialogRef = this.dialog.open(EditComponent, {
       width: '50vw',
       data: { ...category}

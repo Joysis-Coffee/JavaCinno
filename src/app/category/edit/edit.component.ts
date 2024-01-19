@@ -1,7 +1,7 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {CategoryService} from '../category.service';
+import {CategoryService} from '../../services/category.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import {CategoryModel} from '../categoryModel';
+import {ProductModel} from '../../services/model/product-model';
 import {FormGroup, FormControl, Validators} from '@angular/forms';
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {MatSnackBar} from "@angular/material/snack-bar";
@@ -14,7 +14,7 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 export class EditComponent implements OnInit {
 
   id!: number;
-  category!: CategoryModel;
+  category!: ProductModel;
   form!: FormGroup;
   isSubmitting = false;
 
@@ -24,7 +24,7 @@ export class EditComponent implements OnInit {
   --------------------------------------------
   --------------------------------------------*/
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: CategoryModel,
+    @Inject(MAT_DIALOG_DATA) public data: ProductModel,
     private dialogRef: MatDialogRef<EditComponent>,
     public categoryService: CategoryService,
     private snackBar: MatSnackBar,
@@ -41,7 +41,7 @@ export class EditComponent implements OnInit {
   ngOnInit(): void {
     this.id = this.route.snapshot.params['categoryId'];
 
-    this.categoryService.find(this.id).subscribe((data: CategoryModel) => {
+    this.categoryService.find(this.id).subscribe((data: ProductModel) => {
       this.category = data;
     });
 

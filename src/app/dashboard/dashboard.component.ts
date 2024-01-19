@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { dashboardModel } from './dashboard-model';
+import { dashboardModel } from '../services/model/dashboard-model';
 
 @Component({
   selector: 'app-dashboard',

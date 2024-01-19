@@ -1,9 +1,9 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import { CategoryService } from '../category.service';
+import { CategoryService } from '../../services/category.service';
 import { Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
-import {CategoryModel} from "../categoryModel";
+import {ProductModel} from "../../services/model/product-model";
 import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
@@ -22,7 +22,7 @@ export class CreateComponent implements OnInit {
   --------------------------------------------
   --------------------------------------------*/
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: CategoryModel,
+    @Inject(MAT_DIALOG_DATA) public data: ProductModel,
     private dialogRef: MatDialogRef<CreateComponent>,
     private snackBar: MatSnackBar,
     public categoryService: CategoryService,

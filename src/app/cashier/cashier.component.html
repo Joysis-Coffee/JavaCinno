@@ -21,11 +21,11 @@
           </thead>
 
           <tbody class="transparent-body">
-          <tr *ngFor="let example of cashierTable" class="text-white content">
-            <th scope="row">{{example.id}}</th>
-            <td>{{example.username }}</td>
-            <td>{{example.fullname}}</td>
-            <td>{{ example.password }}</td>
+          <tr *ngFor="let cashiers of cashier" class="text-white content">
+            <th scope="row" class="padded-first-column">{{cashiers.id}}</th>
+            <td>{{cashiers.user_name }}</td>
+            <td>{{cashiers.full_name}}</td>
+            <td>{{cashiers.password }}</td>
           </tr>
           </tbody>
 
