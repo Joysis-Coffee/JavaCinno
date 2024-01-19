@@ -19,13 +19,15 @@ import {MatCardModule} from "@angular/material/card";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 import {MatInputModule} from "@angular/material/input";
-import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatFormField, MatFormFieldModule} from "@angular/material/form-field";
 import {MatCommonModule} from "@angular/material/core";
 import {MatButtonModule} from "@angular/material/button";
-import {MatDialogModule} from "@angular/material/dialog";
+import {MatDialogActions, MatDialogContent, MatDialogModule} from "@angular/material/dialog";
+import {CreateCashierComponent} from "./cashier/create-cashier/create-cashier.component";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, SidebarComponent, PosComponent, DashboardComponent, QueeingComponent, CashierComponent,TestComponent],
+  declarations: [AppComponent, HomeComponent, SidebarComponent, PosComponent, DashboardComponent, QueeingComponent, CashierComponent,TestComponent, CreateCashierComponent],
   imports: [BrowserModule,
     AppRoutingModule,
     CategoryModule,
@@ -39,7 +41,14 @@ import {MatDialogModule} from "@angular/material/dialog";
     BrowserAnimationsModule,
     MatCardModule,
     MatProgressSpinnerModule,
-    MatSlideToggleModule,],
+    FormsModule,
+    ReactiveFormsModule,
+    MatDialogActions,
+    MatDialogContent,
+    MatFormField,
+    MatInputModule,
+    MatSlideToggleModule,
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })
