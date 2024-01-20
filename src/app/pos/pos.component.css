@@ -20,9 +20,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 80vw; 
-  color: cornsilk;
-  background: rgba(9, 40, 52, 0.747);
+  width: 80vw;
 }
 
 .products {
@@ -40,8 +38,8 @@ body {
   box-shadow: -2px 0 10px rgba(9, 40, 52, 0.747);
 }
 
-.cart p {
-  color:  #fff;
+.cart p,h2 {
+  color:  black;
 }
 
 /* Styling for heading tags */
@@ -62,7 +60,7 @@ h3 {
 
 /* Styling for product categories */
 .category {
-  margin-bottom: 20px; 
+  margin-bottom: 20px;
 }
 
 /* Styling for the list of products within a category */
@@ -97,7 +95,7 @@ h3 {
   text-decoration: none;
   display: inline-block;
   font-size: 1rem;
-  border-radius: 5px; 
+  border-radius: 5px;
   cursor: pointer;
   margin-bottom: 5px;
   transition: background-color 0.3s;

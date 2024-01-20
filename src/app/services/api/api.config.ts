@@ -9,6 +9,7 @@ export const API_CONFIG = {
     cashier: '/api/v1/cashier/',
     transaction: '/api/v1/transaction/',
     sales: '/api/v1/sales/transaction/',
+    createSales: '/api/v1/sales/',
 
   }
 };

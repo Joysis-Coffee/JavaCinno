@@ -20,7 +20,7 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 import {MatInputModule} from "@angular/material/input";
 import {MatFormField, MatFormFieldModule} from "@angular/material/form-field";
-import {MatCommonModule} from "@angular/material/core";
+import {MatCommonModule, MatOption} from "@angular/material/core";
 import {MatButtonModule} from "@angular/material/button";
 import {MatDialogActions, MatDialogContent, MatDialogModule} from "@angular/material/dialog";
 import {CreateCashierComponent} from "./cashier/create-cashier/create-cashier.component";
@@ -29,9 +29,14 @@ import {CashierService} from "./services/cashier.service";
 import {UpdateCashierComponent} from "./cashier/update-cashier/update-cashier.component";
 import {SalesModalComponent} from "./sales/sales.modal/sales.modal.component";
 import {MatTable, MatTableModule} from "@angular/material/table";
+import {SizeQuantityDialogComponent} from "./pos/size-quantity-dialog/size-quantity-dialog.component";
+import {MatSelect} from "@angular/material/select";
+import {PaymentDialogComponent} from "./pos/payment-dialog/payment-dialog.component";
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, SidebarComponent, PosComponent, DashboardComponent, QueeingComponent, CashierComponent,TestComponent, CreateCashierComponent, UpdateCashierComponent, SalesModalComponent],
+  declarations: [AppComponent, HomeComponent, SidebarComponent, PosComponent, DashboardComponent,
+    QueeingComponent, CashierComponent,TestComponent, CreateCashierComponent,
+    UpdateCashierComponent, SalesModalComponent, SizeQuantityDialogComponent, PaymentDialogComponent],
   imports: [BrowserModule,
     AppRoutingModule,
     CategoryModule,
@@ -52,7 +57,7 @@ import {MatTable, MatTableModule} from "@angular/material/table";
     MatFormField,
     MatInputModule,
     MatTableModule,
-    MatSlideToggleModule, MatTable,
+    MatSlideToggleModule, MatTable, MatOption, MatSelect,
   ],
   providers: [],
   bootstrap: [AppComponent],

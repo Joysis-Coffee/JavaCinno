@@ -1,14 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="./pos.component.css">
-    <title>Coffee Shop POS</title>
-</head>
+
 <body>
     <!-- Main container for Point of Sale (POS) -->
-    <div class="pos-container">
+    <div class="pos-container index-container">
         <div class="products">
       <!-- Left side: Products Menu -->
             <h2>Menu</h2>
@@ -28,10 +21,42 @@
         </div>
 
     <!-- Right side: Shopping Cart -->
-        <div class="cart">
-            <h2>Total Pay: ₱{{ total | number:'1.2-2' }}</h2>
+        <div class="cart bg-white">
+            <h2 class="text-black">Total Pay: ₱{{ total | number:'1.2-2' }}</h2>
 
-            <!-- Display the items in the shopping cart -->
+          <table mat-table [dataSource]="cart" class="mat-elevation-z8 mb-3" hidden>
+
+            <!-- Columns defined here -->
+            <ng-container matColumnDef="Name">
+              <th mat-header-cell class="bg-dark text-white" *matHeaderCellDef> Coffee Name </th>
+              <td mat-cell *matCellDef="let element"> {{element.name}} <br>
+                <span class="text-sm-start text-light-emphasis" style="font-size: 12px">
+         x  {{element.quantity}}
+       </span>
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Quantity">
+              <th mat-header-cell  class="bg-dark text-white" *matHeaderCellDef> Name </th>
+              <td mat-cell *matCellDef="let element"> {{element.quantity}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Size">
+              <th mat-header-cell class="bg-dark text-white"  *matHeaderCellDef> Quantity </th>
+              <td mat-cell *matCellDef="let element"> {{element.size | currency:'PHP'}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Price">
+              <th mat-header-cell  class="bg-dark text-white" *matHeaderCellDef> Size </th>
+              <td mat-cell *matCellDef="let element"> {{element.price | currency:'PHP'}} </td>
+            </ng-container>
+
+            <!-- Header and Row Definitions -->
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+
+          <!-- Display the items in the shopping cart -->
             <ul>
               <li *ngFor="let item of cart">
                 {{ item.name }} x{{ item.quantity }}
@@ -46,5 +71,7 @@
             <button class="pay-button" (click)="onPay()">Pay</button>
         </div>
     </div>
+
+
 </body>
-</html>
+

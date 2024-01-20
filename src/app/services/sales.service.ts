@@ -34,7 +34,7 @@ export class SalesService {
   }
 
   create(transactions: any): Observable<dashboardModel> {
-    return this.httpClient.post<dashboardModel>(this.getFullApiUrl('sales'), JSON.stringify(transactions), this.httpOptions)
+    return this.httpClient.post<dashboardModel>(this.getFullApiUrl('createSales'), JSON.stringify(transactions), this.httpOptions)
       .pipe(
         tap(() => this.refresh()),
         catchError(this.errorHandler)

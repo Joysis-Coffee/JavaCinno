@@ -1,7 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ProductModel} from "../services/model/product-model";
 import {CategoryService} from "../services/category.service";
-import {Subject, takeUntil} from "rxjs";
+import {forkJoin, Subject, takeUntil} from "rxjs";
+import {SizeQuantityDialogComponent} from "./size-quantity-dialog/size-quantity-dialog.component";
+import {MatDialog} from "@angular/material/dialog";
+import {PaymentDialogComponent} from "./payment-dialog/payment-dialog.component";
+import {SalesService} from "../services/sales.service";
+import {DashboardService} from "../services/dashboard.service";
 
 @Component({
   selector: 'app-pos',
@@ -10,6 +15,7 @@ import {Subject, takeUntil} from "rxjs";
 })
 export class PosComponent implements OnInit {
   private unsubscribe$ = new Subject();
+  displayedColumns: string[] = ['Name', 'Quantity', 'Size', 'Price'];
 
   // Arrays and variables to manage products, cart, and total
   products: ProductModel[] = [];
@@ -18,7 +24,13 @@ export class PosComponent implements OnInit {
   cartItems: string[] = [];
   totalDisplay: string = '₱0.00';
 
-  constructor(public categoryService: CategoryService, ) {}
+  constructor(public categoryService: CategoryService,
+              public dialog: MatDialog,
+              public dashboardService: DashboardService,
+              public salesService: SalesService
+              ) {
+  }
+
   ngOnInit(): void {
     // Initialize the products array here
     this.categoryService.fetchCategories();
@@ -41,49 +53,59 @@ export class PosComponent implements OnInit {
 
 
   // Function to handle selecting size options for a product
+// Replace showSizeOptions method with this
   showSizeOptions(product: ProductModel): void {
-
-    // Define size options and their corresponding prices
     const sizeOptions = ['Small', 'Medium', 'Large'];
-    const priceMap: Record<string, number> = {
-      'Small': 20,
-      'Medium': 30,
-      'Large': 40,
-    };
 
-    const sizesText = sizeOptions.join(', ');
+    const dialogRef = this.dialog.open(SizeQuantityDialogComponent, {
+      width: '250px',
+      data: {sizeOptions: sizeOptions}
+    });
 
-     // Prompt user to choose a size
-    const sizePrompt = window.prompt(`Choose size for ${product.name} (${sizesText}):`);
+    dialogRef.afterClosed().subscribe((result: { size: any; quantity: any; }) => {
+      if (result) {
+        const selectedSize = result.size;
+        const quantity = Number(result.quantity); // Make sure to convert the quantity to a number
+        let selectedPrice;
 
-    if (sizePrompt && sizeOptions.includes(sizePrompt)) {
-     // If a valid size is chosen, add the product to the cart and update UI
-      const selectedSize = sizePrompt;
-      const selectedPrice = priceMap[selectedSize];
-      this.addToCart({ ...product, size: selectedSize, quantity: 1, price: selectedPrice });
-      this.updateCartUI();
-    } else {
+        switch (selectedSize) {
+          case 'Small':
+            selectedPrice = product.small_price;
+            break;
+          case 'Medium':
+            selectedPrice = product.medium_price;
+            break;
+          case 'Large':
+            selectedPrice = product.large_price;
+            break;
+          default:
+            alert('Invalid size selection.');
+            return;
+        }
 
-     // Display an alert for an invalid size selection
-      alert('Invalid size selection.');
-    }
+        this.addToCart({...product, size: selectedSize, quantity: quantity, price: selectedPrice * quantity}); // Notice the multiplication here
+        this.updateCartUI();
+      }
+    });
+
   }
 
   // Function to add a product to the cart
+// Function to add a product to the cart
   addToCart(product: CartItem): void {
     const existingItem = this.cart.find(item => item.id === product.id && item.size === product.size);
 
     if (existingItem) {
-  // If the item already exists in the cart, increment the quantity
-      existingItem.quantity += 1;
+      // If the item already exists in the cart, increment the quantity
+      existingItem.quantity += product.quantity;
+      this.total += product.price * product.quantity;
     } else {
-    // If it's a new item, add it to the cart
+      // If it's a new item, add it to the cart
       this.cart.push(product);
+      this.total += product.price * product.quantity;
     }
-
-    // Update the total price
-    this.total += product.price;
   }
+
 
   // Function to update the UI with cart items and total
   updateCartUI(): void {
@@ -102,48 +124,99 @@ export class PosComponent implements OnInit {
 
   // Arrays and function to get unique categories
   categories: string[] = [];
+
   getUniqueCategories(): string[] {
     return Array.from(new Set(this.products.map(product => product.type)));
   }
 
+  onPay(): void {
+    const dialogRef = this.dialog.open(PaymentDialogComponent, {
+      width: '450px'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result && result.customerName && result.cashAmount !== undefined) {
+        // Confirm each item in the cart
+        let orderConfirmed = true;
+        this.cart.forEach(item => {
+          const confirmationMessage = window.confirm(`Confirm order:\n\nProduct: ${item.name}\nQuantity: ${item.quantity}\nSize: ${item.size}`);
+          if (!confirmationMessage) {
+            orderConfirmed = false;
+            console.log(`Order canceled for ${item.name} - Quantity: ${item.quantity}, Size: ${item.size}`);
+          }
+        });
+
+        // If all items are confirmed, save the transaction
+        if (orderConfirmed) {
+          const transaction = {
+            cashier: { id: 1 }, // Assuming cashier is hardcoded to 1 for now
+            transactionDate: new Date(), // Current date and time
+            cash: result.cashAmount,
+            customer_name: result.customerName,
+            change_amount: String(this.total - result.cashAmount), // Assuming cashAmount is a number
+            time_served: "5 minutes", // Example value
+            status: false,
+            total: this.total,
+          };
+
+          // Save the transaction
+          this.dashboardService.create(transaction).subscribe(
+            savedTransaction => {
+              // Assuming the backend responds with the saved transaction, including its id
+              const transactionId = savedTransaction.id;
+
+              // Save sales objects
+              const saveSalesObservables = this.cart.map(item => {
+                const sale = {
+                  transactionId: transactionId,
+                  productId: item.id, // Assuming you need productId here
+                  size: item.size,
+                  subtotal: item.price * item.quantity,
+                  quantity: item.quantity,
+                };
+                return this.salesService.create(sale);
+              });
+
+              forkJoin(saveSalesObservables).subscribe(
+                  (salesResponses: any) => {
+                  console.log('All sales saved', salesResponses);
+                  alert(`Payment successful for ${result.customerName}!`);
+                  this.resetCart();
+                },
+                salesError => {
+                  console.error('Error saving sales', salesError);
+                  alert('An error occurred while saving the sales.');
+                }
+              );
+            },
+            transactionError => {
+              console.error('Error saving transaction', transactionError);
+              alert('An error occurred while saving the transaction.');
+            }
+          );
+        }
+      } else {
+        console.log('Payment canceled or incomplete information.');
+      }
+    });
+  }
+
+  resetCart(): void {
+    this.cart = [];
+    this.total = 0;
+    this.cartItems = [];
+    this.totalDisplay = '₱0.00';
+  }
+
+
 
 // Function to handle payment
-  onPay(): void {
-    const customerName = window.prompt('Enter customer name:');
-
-    if (customerName) {
-      console.log(`Payment logic for ${customerName} goes here`);
-
-      // Log information about the order
-      this.cart.forEach(item => {
-        const confirmationMessage = window.confirm(`Confirm order:\n\nProduct: ${item.name}\nQuantity: ${item.quantity}\nSize: ${item.size}`);
-
-        if (confirmationMessage) {
-          console.log(`Order confirmed for ${item.name} - Quantity: ${item.quantity}, Size: ${item.size}`);
-        } else {
-          console.log(`Order canceled for ${item.name} - Quantity: ${item.quantity}, Size: ${item.size}`);
-        }
-      });
-
-    // Display payment success message, then reset the order
-      alert(`Payment successful for ${customerName}!`);
-
-      // Reset the order
-      this.cart = [];
-      this.total = 0;
-      this.cartItems = [];
-      this.totalDisplay = '₱0.00';
-    } else {
-      alert('Payment canceled.');
-    }
-  }
 }
-
-// Interface for defining product properties
 
 
 // Interface for defining cart item properties, extending the Product interface
 interface CartItem extends ProductModel {
+  id: number;
   quantity: number;
   size?: string;
   price: number;
