@@ -1,0 +1,11 @@
+.transaction-summary {
+  margin-top: 20px;
+}
+
+.transaction-summary > div {
+  margin-bottom: 10px;
+}
+
+th{
+  background-color: #100f0f;
+}

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import {cashierModel} from "../services/model/cashier-model";
-import {CashierService} from "../services/cashier.service.service";
+import {CashierService} from "../services/cashier.service";
 import {Subject, takeUntil} from "rxjs";
 import {ProductModel} from "../services/model/product-model";
 import {CreateCashierComponent} from "./create-cashier/create-cashier.component";
@@ -27,7 +27,6 @@ export class CashierComponent {
         this.cashier = data;
       });
     this.cashierService.refreshCategoriesList();
-
   }
 
   ngOnDestroy() {

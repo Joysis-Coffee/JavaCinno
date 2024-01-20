@@ -18,7 +18,7 @@ export class QueeingComponent implements OnInit {
       {
         id: 1,
         name: "Howard",
-        transaction_date: 1-18-2024,
+        transactionDate: 1-18-2024,
         time: 950,
       },
       // Add more objects as needed

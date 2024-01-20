@@ -55,14 +55,6 @@ export class CashierService {
       );
   }
 
-  delete(id: number): Observable<void> {
-    return this.httpClient.delete<void>(`${this.getFullApiUrl('cashier')}${id}`, this.httpOptions)
-      .pipe(
-        tap(() => this.refreshCategoriesList()),
-        catchError(this.errorHandler)
-      );
-  }
-
 
   fetchCategories() {
     this.httpClient.get<cashierModel[]>(`${this.getFullApiUrl('cashier')}`).subscribe(

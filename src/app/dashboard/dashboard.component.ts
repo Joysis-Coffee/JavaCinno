@@ -1,5 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { dashboardModel } from '../services/model/dashboard-model';
+import {Subject, takeUntil} from "rxjs";
+import {MatDialog} from "@angular/material/dialog";
+import {DashboardService} from "../services/dashboard.service";
+import {SalesModalComponent} from "../sales/sales.modal/sales.modal.component";
+import {SalesService} from "../services/sales.service";
+
 
 @Component({
   selector: 'app-dashboard',
@@ -7,25 +13,41 @@ import { dashboardModel } from '../services/model/dashboard-model';
   styleUrl: './dashboard.component.css'
 })
 export class DashboardComponent implements OnInit {
-  model : dashboardModel[] | undefined;
+  private unsubscribe$ = new Subject();
+  dashboard : dashboardModel[] | undefined;
+
+  constructor(private dashboardServices: DashboardService, public dialog: MatDialog, private salesService: SalesService) {
+  }
 
   ngOnInit(): void {
-    this.model = this.getData();
-  }
-  getData(): dashboardModel[] {
-    const data: dashboardModel[] = [
-      {
-        id: 1,
-        transaction_id: 1,
-        date: "1/19/2024",
-        time: "2:01 PM",
-        cashier: "Carl",
-        name: "Joseph",
-        total: 3,
-      },
-      // Add more objects as needed
-    ];
+    this.dashboardServices.fetch();
+    this.dashboardServices.transactions$
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe((data: dashboardModel[]) => {
+        this.dashboard = data;
+      });
+    this.dashboardServices.refresh();
 
-    return data;
   }
+
+  ngOnDestroy() {
+    // Trigger the unsubscribe
+    this.unsubscribe$.next(undefined);
+    this.unsubscribe$.complete();
+  }
+
+
+  viewTransactions(transactionId: number): void {
+    this.salesService.getTransactionWithDetails(transactionId).subscribe(
+      (dashboardData: any) => {
+        this.dialog.open(SalesModalComponent, {
+          data: { ...dashboardData }
+        });
+      },
+      (error: any) => {
+        console.error('Error fetching transaction details:', error);
+      }
+    );
+  }
+
 }

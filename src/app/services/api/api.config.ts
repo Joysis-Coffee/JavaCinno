@@ -7,6 +7,8 @@ export const API_CONFIG = {
   endpoints: {
     products: '/api/v1/products/',
     cashier: '/api/v1/cashier/',
+    transaction: '/api/v1/transaction/',
+    sales: '/api/v1/sales/transaction/',
 
   }
 };

@@ -8,7 +8,7 @@ import {ProductModel} from "../../services/model/product-model";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {Router} from "@angular/router";
 import {cashierModel} from "../../services/model/cashier-model";
-import {CashierService} from "../../services/cashier.service.service";
+import {CashierService} from "../../services/cashier.service";
 
 @Component({
   selector: 'app-create-cashier',

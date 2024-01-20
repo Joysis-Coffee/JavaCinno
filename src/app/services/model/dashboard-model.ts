@@ -1,11 +1,16 @@
 import { Time } from "@angular/common";
+import {cashierModel} from "./cashier-model";
+import {SalesModel} from "./sales.model";
 
 export interface dashboardModel {
   id: number;
-  transaction_id: number;
-  date: string;
-  time: string;
-  cashier: string;
-  name: string;
+  cashier: cashierModel;
+  transactionDate: Date;
+  cash: number;
+  customer_name: string;
+  change_amount: string;
+  time_served: string;
+  status: boolean;
   total: number;
+  salesItems?: SalesModel[];
 }
