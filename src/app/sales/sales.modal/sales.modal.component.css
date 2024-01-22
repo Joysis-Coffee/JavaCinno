@@ -9,3 +9,11 @@
 th{
   background-color: #100f0f;
 }
+
+
+@media print {
+  mat-dialog-actions {
+    display: none;
+  }
+  /* Add more styles as needed for printing */
+}

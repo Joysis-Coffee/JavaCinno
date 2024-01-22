@@ -7,6 +7,7 @@ import {MatDialog} from "@angular/material/dialog";
 import {PaymentDialogComponent} from "./payment-dialog/payment-dialog.component";
 import {SalesService} from "../services/sales.service";
 import {DashboardService} from "../services/dashboard.service";
+import {SalesModalComponent} from "../sales/sales.modal/sales.modal.component";
 
 @Component({
   selector: 'app-pos',
@@ -28,7 +29,7 @@ export class PosComponent implements OnInit {
               public dialog: MatDialog,
               public dashboardService: DashboardService,
               public salesService: SalesService
-              ) {
+  ) {
   }
 
   ngOnInit(): void {
@@ -138,23 +139,17 @@ export class PosComponent implements OnInit {
       if (result && result.customerName && result.cashAmount !== undefined) {
         // Confirm each item in the cart
         let orderConfirmed = true;
-        this.cart.forEach(item => {
-          const confirmationMessage = window.confirm(`Confirm order:\n\nProduct: ${item.name}\nQuantity: ${item.quantity}\nSize: ${item.size}`);
-          if (!confirmationMessage) {
-            orderConfirmed = false;
-            console.log(`Order canceled for ${item.name} - Quantity: ${item.quantity}, Size: ${item.size}`);
-          }
-        });
+
 
         // If all items are confirmed, save the transaction
         if (orderConfirmed) {
           const transaction = {
-            cashier: { id: 1 }, // Assuming cashier is hardcoded to 1 for now
-            transactionDate: new Date(), // Current date and time
+            cashier: {id: 1},
+            transactionDate: new Date(),
             cash: result.cashAmount,
             customer_name: result.customerName,
             change_amount: String(this.total - result.cashAmount), // Assuming cashAmount is a number
-            time_served: "5 minutes", // Example value
+            time_served: "5 minutes",
             status: false,
             total: this.total,
           };
@@ -162,14 +157,14 @@ export class PosComponent implements OnInit {
           // Save the transaction
           this.dashboardService.create(transaction).subscribe(
             savedTransaction => {
-              // Assuming the backend responds with the saved transaction, including its id
+              // A
               const transactionId = savedTransaction.id;
 
               // Save sales objects
               const saveSalesObservables = this.cart.map(item => {
                 const sale = {
                   transactionId: transactionId,
-                  productId: item.id, // Assuming you need productId here
+                  product: item,
                   size: item.size,
                   subtotal: item.price * item.quantity,
                   quantity: item.quantity,
@@ -178,9 +173,20 @@ export class PosComponent implements OnInit {
               });
 
               forkJoin(saveSalesObservables).subscribe(
-                  (salesResponses: any) => {
+                (salesResponses: any) => {
                   console.log('All sales saved', salesResponses);
-                  alert(`Payment successful for ${result.customerName}!`);
+                  // alert(`Payment successful for ${result.customerName}!`);
+                    this.salesService.getTransactionWithDetails(transactionId).subscribe(
+                      (dashboardData: any) => {
+                        this.dialog.open(SalesModalComponent, {
+                          data: { ...dashboardData }
+                        });
+                      },
+                      (error: any) => {
+                        console.error('Error fetching transaction details:', error);
+                      }
+                    );
+
                   this.resetCart();
                 },
                 salesError => {
@@ -209,14 +215,12 @@ export class PosComponent implements OnInit {
   }
 
 
-
 // Function to handle payment
 }
 
 
 // Interface for defining cart item properties, extending the Product interface
 interface CartItem extends ProductModel {
-  id: number;
   quantity: number;
   size?: string;
   price: number;

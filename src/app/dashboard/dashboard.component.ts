@@ -36,7 +36,6 @@ export class DashboardComponent implements OnInit {
     this.unsubscribe$.complete();
   }
 
-
   viewTransactions(transactionId: number): void {
     this.salesService.getTransactionWithDetails(transactionId).subscribe(
       (dashboardData: any) => {
