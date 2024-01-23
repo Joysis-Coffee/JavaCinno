@@ -4,9 +4,9 @@
  */
 export const API_CONFIG = {
   // localhost
-  //baseUrl: "http://127.0.0.1:8081",
+  baseUrl: "http://127.0.0.1:8081",
   // deployed
-  baseUrl: "https://javacinno.onrender.com",
+  // baseUrl: "https://javacinno.onrender.com",
   endpoints: {
     products: '/api/v1/products/',
     cashier: '/api/v1/cashier/',

@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {ProductModel} from "../services/model/product-model";
 import {CategoryService} from "../services/category.service";
 import {forkJoin, Subject, takeUntil} from "rxjs";
@@ -28,7 +28,8 @@ export class PosComponent implements OnInit {
   constructor(public categoryService: CategoryService,
               public dialog: MatDialog,
               public dashboardService: DashboardService,
-              public salesService: SalesService
+              public salesService: SalesService,
+              private changeDetectorRefs: ChangeDetectorRef
   ) {
   }
 
@@ -52,9 +53,6 @@ export class PosComponent implements OnInit {
     this.unsubscribe$.complete();
   }
 
-
-  // Function to handle selecting size options for a product
-// Replace showSizeOptions method with this
   showSizeOptions(product: ProductModel): void {
     const sizeOptions = ['Small', 'Medium', 'Large'];
 
@@ -91,8 +89,10 @@ export class PosComponent implements OnInit {
 
   }
 
-  // Function to add a product to the cart
-// Function to add a product to the cart
+  trackByItems(index: number, item: CartItem): number {
+    return item.id;
+  }
+
   addToCart(product: CartItem): void {
     const existingItem = this.cart.find(item => item.id === product.id && item.size === product.size);
 
@@ -100,11 +100,16 @@ export class PosComponent implements OnInit {
       // If the item already exists in the cart, increment the quantity
       existingItem.quantity += product.quantity;
       this.total += product.price * product.quantity;
+
     } else {
       // If it's a new item, add it to the cart
       this.cart.push(product);
       this.total += product.price * product.quantity;
+
     }
+
+    this.cart = [...this.cart];
+    this.changeDetectorRefs.detectChanges();
   }
 
 
@@ -149,7 +154,7 @@ export class PosComponent implements OnInit {
             cash: result.cashAmount,
             customer_name: result.customerName,
             change_amount: String(this.total - result.cashAmount), // Assuming cashAmount is a number
-            time_served: "5 minutes",
+            time_served: "",
             status: false,
             total: this.total,
           };
@@ -176,16 +181,16 @@ export class PosComponent implements OnInit {
                 (salesResponses: any) => {
                   console.log('All sales saved', salesResponses);
                   // alert(`Payment successful for ${result.customerName}!`);
-                    this.salesService.getTransactionWithDetails(transactionId).subscribe(
-                      (dashboardData: any) => {
-                        this.dialog.open(SalesModalComponent, {
-                          data: { ...dashboardData }
-                        });
-                      },
-                      (error: any) => {
-                        console.error('Error fetching transaction details:', error);
-                      }
-                    );
+                  this.salesService.getTransactionWithDetails(transactionId).subscribe(
+                    (dashboardData: any) => {
+                      this.dialog.open(SalesModalComponent, {
+                        data: {...dashboardData}
+                      });
+                    },
+                    (error: any) => {
+                      console.error('Error fetching transaction details:', error);
+                    }
+                  );
 
                   this.resetCart();
                 },
@@ -214,8 +219,6 @@ export class PosComponent implements OnInit {
     this.totalDisplay = '₱0.00';
   }
 
-
-// Function to handle payment
 }
 
 
