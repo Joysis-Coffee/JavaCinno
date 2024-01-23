@@ -1,0 +1,69 @@
+@import url('https://fonts.googleapis.com/css2?family=League+Gothic&family=Open+Sans:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap');
+
+
+.nav-item .nav-link{
+    border-radius: 10px;
+}
+.nav-item .nav-link:hover {
+    background-color: #F1B15E; /* Replace #desiredColor with your preferred color */
+    transition: background-color 0.3s; /* Optional: smooth transition for the color change */
+    
+}
+
+.demo-link:hover {
+    background-color: #50453c !important;
+    color: #F1B15E !important; /* Replace #newColor with the color you want */
+    transition: background-color 0.3s; /* Optional: smooth transition for the color change */
+}
+
+.banner {
+    background-image: url('/assets/background.png'); /* Add your image path here */
+    background-size: cover;
+    background-position: center;
+    min-height: 100vh;
+    width: 100%;
+    height: 100vh;
+}
+.banner-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+.banner-content .tagline {
+    font-size: 3.5rem;
+    font-family: 'Open Sans', sans-serif; /* Replace with your desired font family */
+    font-weight: bolder;
+    color: white; /* Adjust color as needed */
+    text-align: center;
+}
+.banner-content .btn {
+    border-radius: 20px;
+    color: white;
+    width: 200px;
+    background-color: #50453c;
+    font-size: medium;
+    margin-top: 50px;
+    font-family: 'League Gothic', sans-serif;
+    /* Additional custom styles for the button if needed */
+}
+
+.banner-content .btn:hover {
+    color: 2f2721;
+    width: 200px;
+    background-color: #F1B15E;
+    font-size: medium;
+    margin-top: 50px;
+    font-family: 'League Gothic', sans-serif;
+    /* Additional custom styles for the button if needed */
+}
+
+
+.row-items{
+    line-height: 1.2;
+    height: 125px;
+}
+
+
+
